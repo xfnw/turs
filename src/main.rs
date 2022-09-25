@@ -1,10 +1,9 @@
-use futures::sink::SinkExt;
 use std::env;
 use std::error::Error;
 use tokio;
-use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
-use tokio_util::codec::{Framed, LinesCodec};
+
+mod pages;
 
 fn get_listen() -> String {
     let addr = env::args()
@@ -36,9 +35,9 @@ async fn main() {
 }
 
 async fn handle_connection(socket: TcpStream) -> Result<(), Box<dyn Error>> {
-    let mut con = Framed::new(socket, LinesCodec::new());
+    socket.set_nodelay(true)?;
 
-    con.send("hewwo").await?;
+    pages::enter::switch(socket, "".to_string()).await?;
 
     Ok(())
 }
