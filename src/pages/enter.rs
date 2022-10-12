@@ -1,6 +1,5 @@
 use format_bytes::format_bytes;
 use std::error::Error;
-use tokio;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 

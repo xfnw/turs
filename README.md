@@ -1,4 +1,4 @@
 # turs
 
-monolithic bbs thing in rust
+work in progress monolithic bbs thing in rust
 

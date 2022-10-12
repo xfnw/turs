@@ -1,15 +1,13 @@
 use std::env;
 use std::error::Error;
-use tokio;
 use tokio::net::{TcpListener, TcpStream};
 
 mod pages;
 
 fn get_listen() -> String {
-    let addr = env::args()
+    env::args()
         .nth(1)
-        .unwrap_or_else(|| "[::]:6923".to_string());
-    return addr;
+        .unwrap_or_else(|| "[::]:6923".to_string())
 }
 
 #[tokio::main]
@@ -26,10 +24,7 @@ async fn main() {
         };
 
         tokio::spawn(async move {
-            match handle_connection(socket).await {
-                Ok(_) => return,
-                Err(_) => return,
-            };
+            let _ = handle_connection(socket).await;
         });
     }
 }
